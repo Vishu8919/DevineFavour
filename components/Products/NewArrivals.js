@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const NewArrivals = () => {
   const scrollRef = useRef(null);
