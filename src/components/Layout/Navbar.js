@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { HiOutlineUser, HiOutlineShoppingBag, HiBars3BottomRight } from 'react-icons/hi2';
-// import SearchBar from './SearchBar';
+import SearchBar from '../Common/SearchBar';
 // import CartDrawer from './CartDrawer';
 import { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
@@ -65,7 +65,7 @@ const Navbar = () => {
           </button>
 
           <div className="overflow-hidden">
-            {/* <SearchBar /> */}
+            <SearchBar />
           </div>
 
           <button onClick={toggleNavDrawer} className="md:hidden">
