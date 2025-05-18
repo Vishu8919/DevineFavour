@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",  // This sets the root directory as the base for path resolution.
+    "baseUrl": ".", 
     "paths": {
-      "@/*": ["./src/*"]  // This tells the compiler that '@/' maps to the 'src' folder.
+      "@/*": ["./*"]
     }
   }
 }

@@ -1,5 +1,5 @@
-// app/layout.js
-import '../styles/globals.css'; // Same global CSS you used before
+import '../styles/globals.css';
+import Providers from '../lib/Providers'; // correct path
 
 export const metadata = {
   title: 'Divine Favour Boutique',
@@ -10,7 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
