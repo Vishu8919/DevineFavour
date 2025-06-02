@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const NewArrivals = () => {
   const scrollRef = useRef(null);
@@ -141,25 +142,27 @@ const NewArrivals = () => {
         onMouseUp={handleMouseUpOrLeave}
         onMouseLeave={handleMouseUpOrLeave}
       >
-        {newArrivals.map((product) => (
-          <div
-            key={product._id}
-            className="min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative"
-            onDoubleClick={() => handleDoubleClick(product._id)}
-          >
-            <img
-              src={product.images[0]?.url}
-              alt={product.images[0]?.altText || product.name}
-              className="w-full h-[500px] object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
-              draggable="false"
-              onDragStart={(e) => e.preventDefault()}
-            />
-            <div className="text-center mt-4">
-              <h4 className="text-lg font-medium">{product.name}</h4>
-              <p className="text-gray-600">${product.price}</p>
-            </div>
-          </div>
-        ))}
+       {newArrivals.map((product) => (
+  <div
+    key={product._id}
+    className="min-w-[100%] sm:min-w-[50%] lg:min-w-[30%] relative"
+    onDoubleClick={() => handleDoubleClick(product._id)}
+  >
+    <Image
+      src={product.images[0]?.url}
+      alt={product.images[0]?.altText || product.name}
+      width={500}      // fixed width or adjust as needed
+      height={500}     // fixed height or adjust as needed
+      className="w-full h-[500px] object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+      draggable={false}
+      onDragStart={(e) => e.preventDefault()}
+    />
+    <div className="text-center mt-4">
+      <h4 className="text-lg font-medium">{product.name}</h4>
+      <p className="text-gray-600">${product.price}</p>
+    </div>
+  </div>
+))}
       </div>
     </section>
   );

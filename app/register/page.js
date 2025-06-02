@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/slices/authSlice';
 import { mergeCart } from '../../redux/slices/cartSlice';
 import Image from 'next/image';
-import register from '../../../public/register.webp'; // Make sure image is in public folder
+
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -50,7 +50,7 @@ const Register = () => {
           className="w-full max-w-md bg-white p-8 rounded-lg border shadow-sm"
         >
           <div className="flex justify-center mb-6">
-            <h2 className="text-xl font-medium">Mahika</h2>
+            <h2 className="text-xl font-medium">Divine Favour</h2>
           </div>
           <h2 className="text-2xl font-bold text-center mb-6">Hey there...!</h2>
           <p className="text-center mb-6">
@@ -101,14 +101,16 @@ const Register = () => {
         </form>
       </div>
       <div className="hidden md:block w-1/2 bg-gray-800">
-        <div className="h-full flex flex-col justify-center items-center">
-          <Image
-            src={register}
-            alt="Register to Account"
-            className="h-[750px] w-full object-cover"
-          />
-        </div>
-      </div>
+  <div className="h-full flex flex-col justify-center items-center">
+    <Image
+      src="/register.webp"
+      alt="Register to Account"
+      className="h-[750px] w-full object-cover"
+      width={750}
+      height={750}
+    />
+  </div>
+</div>
     </div>
   );
 };

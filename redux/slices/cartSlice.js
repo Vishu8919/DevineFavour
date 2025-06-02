@@ -5,21 +5,6 @@ import axios from 'axios';
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-// Helper: safely get cart from localStorage (browser only)
-const loadCartFromStorage = () => {
-  if (typeof window === 'undefined') return { products: [] };
-  const storedCart = localStorage.getItem('cart');
-  try {
-    return storedCart && storedCart !== 'undefined'
-      ? JSON.parse(storedCart)
-      : { products: [] };
-  } catch (error) {
-    console.error('Failed to parse cart:', error);
-    localStorage.removeItem('cart');
-    return { products: [] };
-  }
-};
-
 // Helper: save cart to localStorage (browser only)
 const saveCartToStorage = (cart) => {
   if (typeof window !== 'undefined' && cart && typeof cart === 'object') {
@@ -125,7 +110,7 @@ export const mergeCart = createAsyncThunk(
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    cart: loadCartFromStorage(),
+    cart: { products: [] }, // Start empty to avoid SSR issues
     loading: false,
     error: null,
   },
@@ -133,6 +118,9 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.cart = { products: [] };
       if (typeof window !== 'undefined') localStorage.removeItem('cart');
+    },
+    hydrateCart: (state, action) => {
+      state.cart = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -209,5 +197,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearCart } = cartSlice.actions;
+export const { clearCart, hydrateCart } = cartSlice.actions;
 export default cartSlice.reducer;

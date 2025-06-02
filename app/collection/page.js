@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { FaFilter } from 'react-icons/fa';
 import FilterSidebar from '@/components/Products/FilterSidebar';
 import SortOptions from '@/components/Products/SortOptions';
@@ -17,14 +17,16 @@ const CollectionPage = () => {
   const params = useParams(); // gets dynamic route segments
   const collection = params?.collection || ''; // fallback to empty string if undefined
 
-  const queryParams = Object.fromEntries(searchParams.entries());
+    const queryParams = useMemo(() => {
+    return Object.fromEntries(searchParams.entries());
+  }, [searchParams.toString()]);
 
   const SidebarRef = useRef(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProductsByFilters({ collection, ...queryParams }));
-  }, [dispatch, collection, searchParams.toString()]);
+  }, [dispatch, collection, queryParams]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

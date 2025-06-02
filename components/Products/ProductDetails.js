@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-// import ProductGrid from './ProductGrid';
+import Image from 'next/image';
+import ProductGrid from './ProductGrid';
 
 const ProductDetails = ({ productId }) => {
   const [mainImage, setMainImage] = useState('');
@@ -102,26 +103,34 @@ const ProductDetails = ({ productId }) => {
         <div className="max-w-6xl mx-auto bg-white p-8 rounded-lg">
           <div className="flex flex-col md:flex-row">
             {/* Thumbnails */}
-            <div className="hidden md:flex flex-col space-y-4 mr-6">
-              {selectedProduct.images.map((image, index) => (
-                <img
-                  key={index}
-                  src={image.url}
-                  alt={image.altText || `Thumbnail ${index}`}
-                  className={`w-20 h-20 object-cover rounded-lg cursor-pointer border ${
-                    mainImage === image.url ? 'border-black' : 'border-gray-300'
-                  }`}
-                  onClick={() => setMainImage(image.url)}
-                />
-              ))}
-            </div>
+                      <div className="hidden md:flex flex-col space-y-4 mr-6">
+            {selectedProduct.images.map((image, index) => (
+              <Image
+                key={index}
+                src={image.url}
+                alt={image.altText || `Thumbnail ${index}`}
+                width={80}
+                height={80}
+                className={`object-cover rounded-lg cursor-pointer border ${
+                  mainImage === image.url ? 'border-black' : 'border-gray-300'
+                }`}
+                onClick={() => setMainImage(image.url)}
+              />
+            ))}
+          </div>
 
-            {/* Main Image */}
-            <div className="md:w-1/2">
-              <div className="mb-4">
-                <img src={mainImage} alt="Main Product" className="w-full h-auto object-cover rounded-lg" />
-              </div>
+          {/* Main Image */}
+          <div className="md:w-1/2">
+            <div className="mb-4">
+              <Image
+                src={mainImage}
+                alt="Main Product"
+                width={600}
+                height={600}
+                className="object-cover rounded-lg w-full h-auto"
+              />
             </div>
+          </div>
 
             {/* Product Info */}
             <div className="md:w-1/2 md:ml-10">

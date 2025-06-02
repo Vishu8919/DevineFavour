@@ -20,7 +20,7 @@ const GenderCollectionSection = () => {
           </Link>
           <div className="absolute bottom-8 left-8 bg-white bg-opacity-90 p-4">
             <h2 className="text-2xl font-bold text-gray-900 mb-3">
-              Women's Collection
+              Women&apos;s Collection
             </h2>
             <Link href="/collections/all?gender=Women" className="text-gray-900 underline">
               Shop Now
@@ -42,7 +42,7 @@ const GenderCollectionSection = () => {
           </Link>
           <div className="absolute bottom-8 left-8 bg-white bg-opacity-90 p-4">
             <h2 className="text-2xl font-bold text-gray-900 mb-3">
-              Men's Collection
+              Men&apos;s Collection
             </h2>
             <Link href="/collections/all?gender=Men" className="text-gray-900 underline">
               Shop Now
@@ -64,7 +64,7 @@ const GenderCollectionSection = () => {
           </Link>
           <div className="absolute bottom-8 left-8 bg-white bg-opacity-90 p-4">
             <h2 className="text-2xl font-bold text-gray-900 mb-3">
-              Kids' Collection
+              Kids Collection
             </h2>
             <Link href="/collections/all?gender=Kids" className="text-gray-900 underline">
               Shop Now
