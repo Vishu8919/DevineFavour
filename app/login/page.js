@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image'; // ✅ Import Next.js optimized Image component
-import loginImage from '../assets/login.webp'; // ✅ Adjust if needed (public assets should be in /public)
+import Image from 'next/image';
+import loginImage from '../assets/login.webp'; // Adjust if needed
 
 import { loginUser } from '../../redux/slices/authSlice';
 import { mergeCart } from '../../redux/slices/cartSlice';
@@ -13,23 +13,34 @@ import { mergeCart } from '../../redux/slices/cartSlice';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState("/");
+  const [isCheckoutRedirect, setIsCheckoutRedirect] = useState(false);
+
   const dispatch = useDispatch();
   const router = useRouter();
 
   const { user, guestId, loading } = useSelector((state) => state.auth);
   const { cart } = useSelector((state) => state.cart);
 
-  const redirect = new URLSearchParams(window.location.search).get("redirect") || "/";
-  const isCheckoutRedirect = redirect.includes("checkout");
+  useEffect(() => {
+    // Only access window on client
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const redir = params.get("redirect") || "/";
+      setRedirect(redir);
+      setIsCheckoutRedirect(redir.includes("checkout"));
+    }
+  }, []);
 
   useEffect(() => {
     if (user) {
+      const target = isCheckoutRedirect ? "/checkout" : "/";
       if (cart?.products.length > 0 && guestId) {
         dispatch(mergeCart({ guestId, user })).then(() => {
-          router.push(isCheckoutRedirect ? "/checkout" : "/");
+          router.push(target);
         });
       } else {
-        router.push(isCheckoutRedirect ? "/checkout" : "/");
+        router.push(target);
       }
     }
   }, [user, guestId, cart, router, isCheckoutRedirect, dispatch]);
@@ -89,14 +100,13 @@ const Login = () => {
 
       <div className="hidden md:block w-1/2 bg-gray-800">
         <div className="h-full flex flex-col justify-center items-center">
-          {/* ✅ Optimized image */}
           <Image 
             src={loginImage} 
             alt="Login to Account" 
             className="h-[750px] w-full object-cover"
             width={800} 
             height={750}
-            priority // ensures faster loading on first paint
+            priority
           />
         </div>
       </div>
